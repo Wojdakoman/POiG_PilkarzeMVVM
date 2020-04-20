@@ -1,0 +1,72 @@
+﻿<Window x:Class="PiłkarzeMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:vm="clr-namespace:PiłkarzeMVVM.ViewModel"
+        xmlns:local="clr-namespace:PiłkarzeMVVM"
+        mc:Ignorable="d"
+        Title="Piłkarze" Height="350" Width="525"
+    >
+
+    <Window.Resources>
+        <vm:Controller x:Key="controller"/>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ElementName=MainGrid, Path=DataContext.Close}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid x:Name="MainGrid" DataContext="{StaticResource controller}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Label>Imię</Label>
+            <TextBox Margin="5 0" FontSize="15" Text="{Binding Path=Name, Mode=TwoWay}">
+                <TextBox.ToolTip>Pole nie może być puste!</TextBox.ToolTip>
+            </TextBox>
+
+            <Label>Nazwisko</Label>
+            <TextBox Margin="5 0" FontSize="15" Text="{Binding Path=LastName, Mode=TwoWay}">
+                <TextBox.ToolTip>Pole nie może być puste!</TextBox.ToolTip>
+            </TextBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label>Wiek</Label>
+                <Label Grid.Column="1" HorizontalAlignment="Right" Content="{Binding Path=Value,ElementName=wiek}" />
+            </Grid>
+            <Slider Name="wiek" Maximum="100" Minimum="5" Value="{Binding Path=Age, Mode=TwoWay}" TickFrequency="1" IsSnapToTickEnabled="True" />
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Content="Dodaj" Name="addButton" Command="{Binding AddPlayer}" />
+                <Button Name="btnEdytuj" Content="Edytuj" Grid.Column="1" Command="{Binding EditPlayer}" />
+                <Button Name="btnUsun" Content="Usuń" Grid.Column="2" Command="{Binding DelPlayer}" />
+                <Button Content="Wyczyść" Grid.Row="1" Grid.ColumnSpan="3" Command="{Binding ComClear}" />
+            </Grid>
+        </StackPanel>
+        <ListBox Name="Lista" Grid.Column="1" Margin="0 5" FontSize="15" ItemsSource="{Binding PlayersList}" SelectedIndex="{Binding SelectedIdx}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding LoadPlayerData}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+    </Grid>
+</Window>
+
