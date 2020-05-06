@@ -6,6 +6,7 @@ namespace PiłkarzeMVVM.ViewModel
     using Base;
     using PiłkarzeMVVM.Model;
     using System.Windows;
+    using R = Properties.Resources;
 
     internal class Controller : ViewModelBase
     {
@@ -72,7 +73,7 @@ namespace PiłkarzeMVVM.ViewModel
                     _delPlayer = new RelayCommand(
                         arg =>
                         {
-                            var alert = MessageBox.Show("Na pewno chcesz usunąć?", "Uwaga!", MessageBoxButton.YesNo);
+                            var alert = MessageBox.Show(R.ConfirmDel, R.Attention, MessageBoxButton.YesNo);
                             if(alert == MessageBoxResult.Yes)
                             {
                                 players.Remove(SelectedIdx);
@@ -152,5 +153,16 @@ namespace PiłkarzeMVVM.ViewModel
             SelectedIdx = -1;
             onPropertyChanged(nameof(Name), nameof(LastName), nameof(Age));
         }
+
+        #region Resources
+        public string RName { get => R.Name; }
+        public string RLastname { get => R.Lastname; }
+        public string RAge { get => R.Age; }
+        public string RAdd { get => R.Add; }
+        public string REdit { get => R.Edit; }
+        public string RDel { get => R.Delete; }
+        public string RClear { get => R.Clear; }
+        public string RTooltip { get => R.EmptyError; }
+        #endregion
     }
 }

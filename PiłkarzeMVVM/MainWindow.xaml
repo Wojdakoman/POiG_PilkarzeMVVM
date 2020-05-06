@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:PiłkarzeMVVM.ViewModel"
         xmlns:local="clr-namespace:PiłkarzeMVVM"
         mc:Ignorable="d"
-        Title="Piłkarze" Height="350" Width="525"
+        Title="Piłkarze" Height="350" Width="525" 
     >
 
     <Window.Resources>
@@ -26,21 +26,17 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <Label>Imię</Label>
-            <TextBox Margin="5 0" FontSize="15" Text="{Binding Path=Name, Mode=TwoWay}">
-                <TextBox.ToolTip>Pole nie może być puste!</TextBox.ToolTip>
-            </TextBox>
+            <Label Content="{Binding RName}" />
+            <TextBox Margin="5 0" FontSize="15" Text="{Binding Path=Name, Mode=TwoWay}" ToolTip="{Binding RTooltip}" />
 
-            <Label>Nazwisko</Label>
-            <TextBox Margin="5 0" FontSize="15" Text="{Binding Path=LastName, Mode=TwoWay}">
-                <TextBox.ToolTip>Pole nie może być puste!</TextBox.ToolTip>
-            </TextBox>
+            <Label Content="{Binding RLastname}"/>
+            <TextBox Margin="5 0" FontSize="15" Text="{Binding Path=LastName, Mode=TwoWay}" ToolTip="{Binding RTooltip}" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label>Wiek</Label>
+                <Label Content="{Binding RAge}"/>
                 <Label Grid.Column="1" HorizontalAlignment="Right" Content="{Binding Path=Value,ElementName=wiek}" />
             </Grid>
             <Slider Name="wiek" Maximum="100" Minimum="5" Value="{Binding Path=Age, Mode=TwoWay}" TickFrequency="1" IsSnapToTickEnabled="True" />
@@ -54,10 +50,10 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Content="Dodaj" Name="addButton" Command="{Binding AddPlayer}" />
-                <Button Name="btnEdytuj" Content="Edytuj" Grid.Column="1" Command="{Binding EditPlayer}" />
-                <Button Name="btnUsun" Content="Usuń" Grid.Column="2" Command="{Binding DelPlayer}" />
-                <Button Content="Wyczyść" Grid.Row="1" Grid.ColumnSpan="3" Command="{Binding ComClear}" />
+                <Button Content="{Binding RAdd}" Name="addButton" Command="{Binding AddPlayer}" />
+                <Button Name="btnEdytuj" Content="{Binding REdit}" Grid.Column="1" Command="{Binding EditPlayer}" />
+                <Button Name="btnUsun" Content="{Binding RDel}" Grid.Column="2" Command="{Binding DelPlayer}" />
+                <Button Content="{Binding RClear}" Grid.Row="1" Grid.ColumnSpan="3" Command="{Binding ComClear}" />
             </Grid>
         </StackPanel>
         <ListBox Name="Lista" Grid.Column="1" Margin="0 5" FontSize="15" ItemsSource="{Binding PlayersList}" SelectedIndex="{Binding SelectedIdx}">
